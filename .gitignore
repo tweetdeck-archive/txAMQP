@@ -1,0 +1,17 @@
+.*.swp
+*.pyc
+*.log
+
+# dist is build products from the deploy process.
+dist
+# build-web is chrome build to serve from /web
+build-web
+
+_trial_temp
+_rest_logs
+twistd.pid
+dropin.cache
+
+# environment should be a symlink into tweetdeck-common/environments/ENVNAME
+environment
+
