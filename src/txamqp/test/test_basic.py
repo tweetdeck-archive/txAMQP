@@ -151,7 +151,7 @@ class BasicTests(TestBase):
             self.fail("Got message after cancellation: " + msg)
         except Empty: None
 
-        #cancellation of non-existant consumers should be handled without error
+        #cancellation of non-existent consumers should be handled without error
         yield channel.basic_cancel(consumer_tag="my-consumer")
         yield channel.basic_cancel(consumer_tag="this-never-existed")
 

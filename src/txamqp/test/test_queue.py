@@ -115,7 +115,7 @@ class QueueTests(TestBase):
         try:
             #other connection should not be allowed to declare this:
             yield channel.queue_declare(queue="passive-queue-2", passive="True")
-            self.fail("Expected passive declaration of non-existant queue to raise a channel exception")
+            self.fail("Expected passive declaration of non-existent queue to raise a channel exception")
         except Closed, e:
             self.assertChannelException(404, e.args[0])
 
@@ -136,10 +136,10 @@ class QueueTests(TestBase):
         #use the queue name where neither routing key nor queue are specified:
         yield channel.queue_bind(exchange="amq.direct")
 
-        #try and bind to non-existant exchange
+        #try and bind to non-existent exchange
         try:
             yield channel.queue_bind(queue="queue-1", exchange="an-invalid-exchange", routing_key="key1")
-            self.fail("Expected bind to non-existant exchange to fail")
+            self.fail("Expected bind to non-existent exchange to fail")
         except Closed, e:
             self.assertChannelException(404, e.args[0])
 
@@ -147,10 +147,10 @@ class QueueTests(TestBase):
         channel = yield self.client.channel(2)
         yield channel.channel_open()
 
-        #try and bind non-existant queue:
+        #try and bind non-existent queue:
         try:
             yield channel.queue_bind(queue="queue-2", exchange="amq.direct", routing_key="key1")
-            self.fail("Expected bind of non-existant queue to fail")
+            self.fail("Expected bind of non-existent queue to fail")
         except Closed, e:
             self.assertChannelException(404, e.args[0])
 
@@ -175,12 +175,12 @@ class QueueTests(TestBase):
         except Closed, e:
             self.assertChannelException(404, e.args[0])
 
-        #check attempted deletion of non-existant queue is handled correctly:
+        #check attempted deletion of non-existent queue is handled correctly:
         channel = yield self.client.channel(2)
         yield channel.channel_open()
         try:
             yield channel.queue_delete(queue="i-dont-exist", if_empty="True")
-            self.fail("Expected delete of non-existant queue to fail")
+            self.fail("Expected delete of non-existent queue to fail")
         except Closed, e:
             self.assertChannelException(404, e.args[0])
 
